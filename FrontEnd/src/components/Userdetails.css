@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+
+/* Theme Variables */
+:root {
+  --primary: #ffffff;
+  --secondary: #4caf50;
+  --dark: #000000;
+  --muted: #999999;
+  --font-main: 'Raleway', sans-serif;
+
+  --fw-medium: 500;
+  --fs-base: 1rem;
+  --transition-fast: 0.2s ease-in-out;
+}
+
+/*  Scoped Base Styles */
+.user-panel {
+  font-family: var(--font-main);
+  font-size: var(--fs-base);
+  background-color: var(--dark);
+  color: var(--primary);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/*  Mobile Navbar */
+.user-panel .navbar {
+  border-bottom: 1px solid var(--muted);
+}
+.user-panel .btn {
+  font-size: 1rem;
+  color: var(--primary);
+  border-color: var(--muted);
+}
+.user-panel .btn:hover {
+  background-color: var(--secondary);
+  color: var(--dark);
+}
+
+/*  Sidebar */
+.user-panel .sidebar {
+  width: 300px;
+  background: var(--dark);
+  border-right: 1px solid var(--muted);
+  padding: 1rem;
+  overflow-y: auto;
+}
+.user-panel .sidebar-header {
+  padding-top: 1rem;
+  text-align: center;
+}
+.user-panel .user-avatar {
+  font-size: 4rem;
+  color: var(--secondary);
+  margin-bottom: 1rem;
+}
+.user-panel .user-name {
+  color: var(--primary);
+  font-weight: var(--fw-medium);
+  margin-bottom: 1rem;
+}
+.user-panel .logout-btn {
+  background-color: var(--secondary);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: var(--fw-medium);
+  transition: background var(--transition-fast);
+}
+.user-panel .logout-btn:hover {
+  background-color: #388e3c;
+  color: #ffffff;
+}
+
+/*  Main Content */
+.user-panel .main-content {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  color: var(--dark);
+}
+.user-panel .header-row h4 {
+  font-weight: var(--fw-medium);
+  color: var(--dark);
+}
+
+/*  Cards */
+.user-panel .info-card {
+  border: 1px solid var(--muted);
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+}
+.user-panel .info-card h5 {
+  font-weight: var(--fw-medium);
+}
+.user-panel .info-card h6 {
+  font-weight: var(--fw-medium);
+  color: var(--muted);
+}
+.user-panel .info-card p {
+  color: var(--dark);
+}
+.user-panel .edit-icon {
+  color: var(--muted);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.user-panel .edit-icon:hover {
+  color: var(--secondary);
+}
+
+.add-btn {
+  background-color: #4caf50; /* green background */
+  color: #000000;            /* black text */
+  border: none;
+  font-weight: var(--fw-medium);
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  margin-top: 0.75rem;
+  transition: background var(--transition-fast);
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.add-btn:hover {
+  background-color: var(--dark); /* black background on hover */
+  color: #ffffff;                /* white text on hover */
+}
+
+
+/*  Animation */
+.user-panel .fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*  Responsive */
+@media (max-width: 768px) {
+  .user-panel .flex-nowrap {
+    flex-direction: column;
+  }
+  .user-panel .sidebar {
+    width: 100%;
+    border-top: 1px solid var(--muted);
+    order: 2;
+  }
+  .user-panel .main-content {
+    order: 1;
+    padding: 1rem;
+  }
+  .user-panel .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/*  Offcanvas */
+.user-panel .user-offcanvas .offcanvas-body {
+  background: var(--dark);
+}
+.user-panel .user-offcanvas .offcanvas-header,
+.user-panel .user-offcanvas .offcanvas-title {
+  color: var(--primary);
+}

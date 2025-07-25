@@ -1,0 +1,129 @@
+//package cts.shbs.service;
+//
+//import cts.shbs.entity.Payment;
+//import cts.shbs.exception.PaymentNotFoundException;
+//import cts.shbs.model.PaymentDto;
+//import cts.shbs.repository.PaymentRepository;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.modelmapper.ModelMapper;
+//import org.mockito.InjectMocks;
+//import org.mockito.Mock;
+//import org.mockito.MockitoAnnotations;
+//
+//import java.util.List;
+//import java.util.Optional;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//import static org.mockito.Mockito.*;
+//
+//class PaymentServiceImpTest {
+//
+//    @Mock
+//    private PaymentRepository paymentRepo;
+//
+//    @Mock
+//    private ModelMapper modelMapper;
+//
+//    @InjectMocks
+//    private PaymentServiceImp paymentService;
+//
+//    private Payment payment;
+//    private PaymentDto paymentDto;
+//
+//    @BeforeEach
+//    void setUp() {
+//        MockitoAnnotations.openMocks(this);
+//
+//        payment = new Payment();
+//        payment.setPaymentId(1L);
+//        payment.setUserId(101L);
+//        payment.setAmount(2500.0);
+//        payment.setStatus("paid");
+//        payment.setPaymentMethod("CREDIT_CARD");
+//
+//        paymentDto = new PaymentDto();
+//        paymentDto.setPaymentId(1L);
+//        paymentDto.setUserId(101L);
+//        paymentDto.setAmount(2500.0);
+//        paymentDto.setStatus("paid");
+//        paymentDto.setPaymentMethod("CREDIT_CARD");
+//    }
+//
+//    @Test
+//    void testSavePayment() {
+//        when(modelMapper.map(paymentDto, Payment.class)).thenReturn(payment);
+//        when(paymentRepo.save(any(Payment.class))).thenReturn(payment);
+//        when(modelMapper.map(payment, PaymentDto.class)).thenReturn(paymentDto);
+//
+//        PaymentDto result = paymentService.savePayment(paymentDto);
+//
+//        assertNotNull(result);
+//        assertEquals("paid", result.getStatus());
+//    }
+//
+//    @Test
+//    void testGetAllPayment() {
+//        when(paymentRepo.findAll()).thenReturn(List.of(payment));
+//        when(modelMapper.map(payment, PaymentDto.class)).thenReturn(paymentDto);
+//
+//        List<PaymentDto> result = paymentService.getAllPayment();
+//
+//        assertEquals(1, result.size());
+//        assertEquals(101L, result.get(0).getUserId());
+//    }
+//
+//    @Test
+//    void testGetPaymentById_Found() {
+//        when(paymentRepo.findById(1L)).thenReturn(Optional.of(payment));
+//        when(modelMapper.map(payment, PaymentDto.class)).thenReturn(paymentDto);
+//
+//        PaymentDto result = paymentService.getPaymentById(1L);
+//
+//        assertNotNull(result);
+//        assertEquals("paid", result.getStatus());
+//    }
+//
+//    @Test
+//    void testGetPaymentById_NotFound() {
+//        when(paymentRepo.findById(1L)).thenReturn(Optional.empty());
+//
+//        assertThrows(PaymentNotFoundException.class, () -> paymentService.getPaymentById(1L));
+//    }
+//
+//    @Test
+//    void testUpdatePayment_Found() {
+//        when(paymentRepo.findById(1L)).thenReturn(Optional.of(payment));
+//        when(paymentRepo.save(any(Payment.class))).thenReturn(payment);
+//        when(modelMapper.map(payment, PaymentDto.class)).thenReturn(paymentDto);
+//
+//        PaymentDto result = paymentService.updatePayment(1L, paymentDto);
+//
+//        assertNotNull(result);
+//        assertEquals("paid", result.getStatus());
+//    }
+//
+//    @Test
+//    void testUpdatePayment_NotFound() {
+//        when(paymentRepo.findById(1L)).thenReturn(Optional.empty());
+//
+//        assertThrows(PaymentNotFoundException.class, () -> paymentService.updatePayment(1L, paymentDto));
+//    }
+//
+//    @Test
+//    void testDeletePayment_Found() {
+//        when(paymentRepo.existsById(1L)).thenReturn(true);
+//        doNothing().when(paymentRepo).deleteById(1L);
+//
+//        paymentService.deletePayment(1L);
+//
+//        verify(paymentRepo, times(1)).deleteById(1L);
+//    }
+//
+//    @Test
+//    void testDeletePayment_NotFound() {
+//        when(paymentRepo.existsById(1L)).thenReturn(false);
+//
+//        assertThrows(PaymentNotFoundException.class, () -> paymentService.deletePayment(1L));
+//    }
+//}

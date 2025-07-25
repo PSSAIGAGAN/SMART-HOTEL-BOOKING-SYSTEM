@@ -1,0 +1,32 @@
+:root {
+    --primary: #ffffff;
+    --secondary: #4caf50;
+    --dark: #000000;
+  }
+   
+  /* Footer Container */
+  .custom-footer {
+    background-color: var(--dark);
+    border-top: 5px solid var(--secondary);
+    color: var(--primary);
+  }
+   
+  /* Social Icons */
+  .social-icons a {
+    color: var(--primary);
+    margin: 0 0.5rem;
+    font-size: 1.25rem;
+    transition: color 0.3s, transform 0.3s;
+  }
+   
+  .social-icons a:hover {
+    color: var(--secondary);
+    transform: scale(1.1);
+  }
+   
+  /* Copyright Text */
+  footer .text-muted {
+    color: var(--primary) !important;
+    opacity: 1;
+  }
+   

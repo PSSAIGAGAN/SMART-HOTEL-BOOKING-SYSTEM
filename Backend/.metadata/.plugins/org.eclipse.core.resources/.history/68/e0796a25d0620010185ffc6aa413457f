@@ -1,0 +1,156 @@
+package cts.shbs.service;
+
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
+import com.razorpay.Utils;
+import org.json.JSONObject;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import cts.shbs.model.PaymentDto;
+import cts.shbs.entity.Booking;
+import cts.shbs.entity.BookingStatus;
+import cts.shbs.entity.Payment;
+import cts.shbs.entity.PaymentStatus;
+import cts.shbs.exception.PaymentNotFoundException;
+import cts.shbs.repository.BookingRepository;
+import cts.shbs.repository.PaymentRepository;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Service
+public class PaymentServiceImp implements PaymentService {
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private PaymentRepository paymentRepo;
+
+    @Autowired
+    private BookingRepository bookingRepo;
+
+    @Value("${razorpay.key.id}")
+    private String razorpayKeyId;
+
+    @Value("${razorpay.key.secret}")
+    private String razorpayKeySecret;
+
+    @Value("${razorpay.currency}")
+    private String razorpayCurrency;
+
+    @Transactional
+    public String verifyPayment(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature) {
+        try {
+            JSONObject attributesForVerification = new JSONObject();
+            attributesForVerification.put("razorpay_order_id", razorpayOrderId);
+            attributesForVerification.put("razorpay_payment_id", razorpayPaymentId);
+            attributesForVerification.put("razorpay_signature", razorpaySignature);
+
+            boolean isValid = Utils.verifyPaymentSignature(attributesForVerification, razorpayKeySecret);
+
+            String statusToUpdate = isValid ? PaymentStatus.COMPLETED.name() : PaymentStatus.FAILED.name();
+
+            updatePaymentAndBookingStatus(razorpayOrderId, razorpayPaymentId, statusToUpdate);
+
+            return isValid ? "Payment verified successfully." : "Payment verification failed.";
+
+        } catch (RazorpayException e) {
+            throw new RuntimeException("Error verifying Razorpay payment: " + e.getMessage(), e);
+        }
+    }
+
+    @Transactional
+    public PaymentDto updatePaymentAndBookingStatus(String razorpayOrderId, String razorpayPaymentId, String newStatus) {
+        Optional<Payment> optionalPayment = paymentRepo.findByRazorpayOrderId(razorpayOrderId);
+
+        if (optionalPayment.isEmpty()) {
+            throw new PaymentNotFoundException("Payment not found for Razorpay Order ID: " + razorpayOrderId);
+        }
+
+        Payment payment = optionalPayment.get();
+        payment.setRazorpayPaymentId(razorpayPaymentId);
+        payment.setStatus(PaymentStatus.valueOf(newStatus));
+
+        Payment updatedPayment = paymentRepo.save(payment);
+
+        Long associatedBookingId = payment.getBookingId();
+
+        if (associatedBookingId != null) {
+            bookingRepo.findById(associatedBookingId).ifPresent(booking -> {
+                if (PaymentStatus.COMPLETED.name().equalsIgnoreCase(newStatus)) {
+                    booking.setStatus(BookingStatus.CONFIRMED);
+                    booking.setPayment(payment);
+                    System.out.println("Payment " + razorpayPaymentId + " for Order " + razorpayOrderId + " completed. Booking " + associatedBookingId + " confirmed.");
+                } else if (PaymentStatus.FAILED.name().equalsIgnoreCase(newStatus)) {
+                    booking.setStatus(BookingStatus.PENDING_PAYMENT);
+                    booking.setPayment(null);
+                    System.out.println("Payment " + razorpayPaymentId + " for Order " + razorpayOrderId + " failed. Booking " + associatedBookingId + " status updated to PENDING_PAYMENT.");
+                }
+                bookingRepo.save(booking);
+            });
+        } else {
+            System.err.println("Warning: Payment " + razorpayOrderId + " has no associated Booking ID.");
+        }
+
+        return modelMapper.map(updatedPayment, PaymentDto.class);
+    }
+
+    @Override
+    @Transactional
+    public PaymentDto savePayment(PaymentDto paymentDTO) {
+        Payment payment = modelMapper.map(paymentDTO, Payment.class);
+        if (payment.getStatus() == null) {
+            payment.setStatus(PaymentStatus.PENDING);
+        }
+        Payment savedPayment = paymentRepo.save(payment);
+        return modelMapper.map(savedPayment, PaymentDto.class);
+    }
+
+    @Override
+    public List<PaymentDto> getAllPayment() {
+        return paymentRepo.findAll().stream()
+                .map(payment -> modelMapper.map(payment, PaymentDto.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public PaymentDto getPaymentById(Long id) {
+        Payment payment = paymentRepo.findById(id)
+                .orElseThrow(() -> new PaymentNotFoundException("Payment not found with ID: " + id));
+        return modelMapper.map(payment, PaymentDto.class);
+    }
+
+    @Override
+    @Transactional
+    public PaymentDto updatePayment(Long id, PaymentDto updatedPaymentDTO) {
+        Payment payment = paymentRepo.findById(id)
+                .orElseThrow(() -> new PaymentNotFoundException("Cannot update. Payment not found with ID: " + id));
+
+        payment.setUserId(updatedPaymentDTO.getUserId());
+        payment.setAmount(updatedPaymentDTO.getAmount());
+        payment.setStatus(PaymentStatus.valueOf(updatedPaymentDTO.getStatus()));
+        payment.setPaymentMethod(updatedPaymentDTO.getPaymentMethod());
+        payment.setRazorpayOrderId(updatedPaymentDTO.getRazorpayOrderId());
+        payment.setRazorpayPaymentId(updatedPaymentDTO.getRazorpayPaymentId());
+        payment.setCurrency(updatedPaymentDTO.getCurrency());
+        payment.setBookingId(updatedPaymentDTO.getBookingId());
+
+        Payment updatedPayment = paymentRepo.save(payment);
+        return modelMapper.map(updatedPayment, PaymentDto.class);
+    }
+
+    @Override
+    @Transactional
+    public void deletePayment(Long id) {
+        if (!paymentRepo.existsById(id)) {
+            throw new PaymentNotFoundException("Cannot delete. Payment not found with ID: " + id);
+        }
+        paymentRepo.deleteById(id);
+    }
+}

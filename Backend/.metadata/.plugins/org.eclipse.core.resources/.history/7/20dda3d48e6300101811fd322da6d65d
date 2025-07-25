@@ -1,0 +1,132 @@
+package cts.shbs.service;
+
+import cts.shbs.entity.Booking;
+import cts.shbs.exception.ResourceNotFoundException;
+import cts.shbs.model.BookingDto;
+import cts.shbs.repository.BookingRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+class BookingServiceImpTest {
+
+    @Mock
+    private BookingRepository bookingRepo;
+
+    @Mock
+    private ModelMapper modelMapper;
+
+    @InjectMocks
+    private BookingServiceImp bookingService;
+
+    private Booking booking;
+    private BookingDto bookingDto;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        booking = new Booking();
+        booking.setBookingId(1L);
+        booking.setRoomId(101L);
+        booking.setUserId(202L);
+        booking.setCheckInDate(LocalDate.of(2025, 6, 15));
+        booking.setCheckOutDate(LocalDate.of(2025, 6, 20));
+        booking.setStatus("CONFIRMED");
+
+        bookingDto = new BookingDto();
+        bookingDto.setBookingId(1L);
+        bookingDto.setRoomId(101L);
+        bookingDto.setUserId(202L);
+        bookingDto.setCheckInDate(LocalDate.of(2025, 6, 15));
+        bookingDto.setCheckOutDate(LocalDate.of(2025, 6, 20));
+        bookingDto.setStatus("CONFIRMED");
+    }
+
+    @Test
+    void testSaveBooking() {
+        when(modelMapper.map(bookingDto, Booking.class)).thenReturn(booking);
+        when(bookingRepo.save(any(Booking.class))).thenReturn(booking);
+        when(modelMapper.map(booking, BookingDto.class)).thenReturn(bookingDto);
+
+        BookingDto result = bookingService.saveBooking(bookingDto);
+
+        assertNotNull(result);
+        assertEquals("CONFIRMED", result.getStatus());
+    }
+
+    @Test
+    void testGetAllBookings() {
+        when(bookingRepo.findAll()).thenReturn(List.of(booking));
+        when(modelMapper.map(booking, BookingDto.class)).thenReturn(bookingDto);
+
+        List<BookingDto> result = bookingService.getAllBookings();
+
+        assertEquals(1, result.size());
+        assertEquals(202L, result.get(0).getUserId());
+    }
+
+    @Test
+    void testGetBookingById_Found() {
+        when(bookingRepo.findById(1L)).thenReturn(Optional.of(booking));
+        when(modelMapper.map(booking, BookingDto.class)).thenReturn(bookingDto);
+
+        BookingDto result = bookingService.getBookingById(1L);
+
+        assertNotNull(result);
+        assertEquals(101L, result.getRoomId());
+    }
+
+    @Test
+    void testGetBookingById_NotFound() {
+        when(bookingRepo.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> bookingService.getBookingById(1L));
+    }
+
+    @Test
+    void testUpdateBooking_Found() {
+        when(bookingRepo.findById(1L)).thenReturn(Optional.of(booking));
+        when(bookingRepo.save(any(Booking.class))).thenReturn(booking);
+        when(modelMapper.map(booking, BookingDto.class)).thenReturn(bookingDto);
+
+        BookingDto result = bookingService.updateBooking(1L, bookingDto);
+
+        assertNotNull(result);
+        assertEquals("CONFIRMED", result.getStatus());
+    }
+
+    @Test
+    void testUpdateBooking_NotFound() {
+        when(bookingRepo.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> bookingService.updateBooking(1L, bookingDto));
+    }
+
+    @Test
+    void testDeleteBooking_Found() {
+        when(bookingRepo.existsById(1L)).thenReturn(true);
+        doNothing().when(bookingRepo).deleteById(1L);
+
+        bookingService.deleteBooking(1L);
+
+        verify(bookingRepo, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void testDeleteBooking_NotFound() {
+        when(bookingRepo.existsById(1L)).thenReturn(false);
+
+        assertThrows(ResourceNotFoundException.class, () -> bookingService.deleteBooking(1L));
+    }
+}

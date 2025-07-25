@@ -1,0 +1,34 @@
+/* Header section */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hotel-heading {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  .hotel-add-btn {
+    font-size: 0.9rem;
+  }
+  
+  /* Action icons in hotels table */
+  .hotel-action-icons button {
+    background: none;
+    border: 1;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+  
+  /* Mobile card layout (inherits breakpoints from Manageusers.css) */
+  .add-btn {
+    font-size: 0.9rem;
+  }
+  
+  .action-btn {
+    margin-right: 0.5rem;
+  }
+  

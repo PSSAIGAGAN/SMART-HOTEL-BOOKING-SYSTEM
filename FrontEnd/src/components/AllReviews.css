@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Montserrat:wght@700&display=swap');
+ 
+/* 🌿 Design Tokens */
+:root {
+  --color-primary: #000000;
+  --color-bg: #ffffff;
+  --color-accent: #4caf50;
+  --color-muted: #999999;
+ 
+  --font-base: 'Raleway', sans-serif;
+  --font-heading: 'Raleway', sans-serif;
+  --font-accent: 'Montserrat', sans-serif;
+ 
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+ 
+  --line-height-base: 1.6;
+  --letter-spacing-base: 0.5px;
+ 
+  --transition-fast: 0.2s ease-in-out;
+  --transition-smooth: 0.4s ease;
+}
+ 
+/* 🧱 Container */
+.all-wrapper {
+  background-color: var(--color-bg);
+  padding: 20px;
+  border-radius: 10px;
+  font-family: var(--font-base);
+}
+ 
+/* 🟢 CTA Button */
+.all-cta-button {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-accent);
+  font-weight: var(--font-weight-bold);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+}
+ 
+.all-cta-button:hover {
+  background-color: var(--color-muted);
+  color: var(--color-primary);
+}
+ 
+/* 🚨 Error Message */
+.all-error-message {
+  background-color: #f44336;
+  color: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-weight: var(--font-weight-bold);
+}
+ 
+/* 📋 Review List */
+.all-review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ 
+/* 📦 Review Card */
+.all-review-card {
+  background-color: #f9f9f9;
+  border: 1px solid var(--color-muted);
+  margin-bottom: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  transition: transform var(--transition-smooth);
+}
+ 
+.all-review-card:hover {
+  transform: scale(1.02);
+}
+ 
+/* 📝 Review Details */
+.all-review-details {
+  line-height: var(--line-height-base);
+  margin-bottom: 10px;
+}
+ 
+.all-manager-reply {
+  margin-top: 12px;
+  color: var(--color-accent);
+  font-style: italic;
+}
+ 
+.all-timestamp {
+  color: var(--color-muted);
+}
+ 
+/* 👤 Avatar */
+.all-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}

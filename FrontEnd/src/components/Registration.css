@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Montserrat:wght@500&display=swap');
+
+/* Theme Variables */
+:root {
+  --color-primary: #ffffff;
+  --color-dark: #000000;
+  --color-accent: #4caf50;
+  --color-muted: #999999;
+
+  --font-base: 'Raleway', sans-serif;
+  --font-accent: 'Montserrat', sans-serif;
+  --transition-speed: 0.3s;
+}
+
+/* Scoped Base Layout */
+#register-page {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: var(--color-muted);
+  font-family: var(--font-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form Container */
+#register-page #registrationform {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  padding: 32px;
+  width: 340px;
+  border-radius: 18px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title */
+#register-page #registrationform h1 {
+  font-family: var(--font-base);
+  font-size: 2.3rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+/* Input Fields */
+#register-page input[type="text"],
+#register-page input[type="email"],
+#register-page input[type="password"],
+#register-page input[type="tel"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--color-muted);
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 15px;
+  font-family: var(--font-base);
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+#register-page input[type="text"]:focus,
+#register-page input[type="email"]:focus,
+#register-page input[type="password"]:focus,
+#register-page input[type="tel"]:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+/* Submit Button */
+#register-page #submitButton {
+  width: 100%;
+  padding: 11px;
+  margin-top: 12px;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-accent);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+#register-page #submitButton:hover {
+  background-color: var(--color-primary);
+  color: var(--color-dark);
+  border: 1px solid var(--color-accent);
+}
+
+/* Error Message */
+#register-page .text-danger {
+  background-color: #ffe5e5;
+  color: #b30000;
+  padding: 0.6rem;
+  margin-bottom: 0.9rem;
+  border-left: 5px solid #cc0000;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: var(--font-base);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  #register-page #registrationform {
+    width: 90%;
+    padding: 24px;
+  }
+
+  #register-page #registrationform h1 {
+    font-size: 1.8rem;
+  }
+
+  #register-page #submitButton {
+    font-size: 14px;
+    padding: 9px;
+  }
+}

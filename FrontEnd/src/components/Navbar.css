@@ -1,0 +1,95 @@
+:root {
+    --primary: #ffffff;
+    --secondary: #4caf50;
+    --dark: #000000;
+  }
+ 
+  /* Reset & Base */
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    font-family: 'Raleway', sans-serif;
+  }
+ 
+  /* Navbar Container */
+  .custom-navbar {
+    background-color: var(--dark) !important;
+    border-bottom: 5px solid var(--secondary) !important;
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    z-index: 999;
+  }
+ 
+  /* Branding */
+  .navbar-logo-wrapper {
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+  }
+ 
+  .navbar-logo {
+    height: 50px;
+    transition: transform 0.3s ease;
+  }
+ 
+  .navbar-logo:hover {
+    transform: scale(1.05);
+  }
+ 
+  .brand-name {
+    color: var(--primary);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+ 
+  /* Nav Links */
+  .custom-navbar .nav-link {
+    color: var(--primary) !important;
+    margin-right: 1.5rem;
+    font-weight: 500;
+    opacity: 0.85;
+    transition: color 0.3s ease, opacity 0.3s ease;
+  }
+ 
+  .custom-navbar .nav-link:hover {
+    color: var(--secondary) !important;
+    opacity: 1;
+  }
+ 
+  .custom-navbar .nav-link.active {
+    color: var(--secondary);
+    border-bottom: 2px solid var(--secondary);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+  }
+ 
+  /* Toggler */
+  .custom-toggler {
+    border: none !important;
+  }
+ 
+  .custom-toggler .navbar-toggler-icon {
+    filter: invert(1);
+    transition: filter 0.3s ease;
+  }
+  .signup-btn {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: white;
+  }
+ 
+  .signup-btn:hover {
+    background-color: #45a049;
+    border-color: #45a049
+  }
+  .user-avatar {
+    font-size: 1.8rem;   /* You can increase this further if needed */
+    color: #4caf50;
+    cursor: pointer;
+    margin-left: 0.75rem; /* Optional: gives spacing next to other nav items */
+  }
+  

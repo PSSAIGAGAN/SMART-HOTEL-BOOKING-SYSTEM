@@ -1,0 +1,89 @@
+.loyalty-page {
+  background-color: #f9f9f9;
+  padding: 2rem 0;
+  min-height: 100vh;
+}
+ 
+.loyalty-container {
+  max-width: 600px;
+  margin: auto;
+}
+ 
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+ 
+.points-card {
+  background: linear-gradient(145deg, #388e3c, #4caf50);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 20px rgba(56, 142, 60, 0.3);
+}
+.points-value {
+  font-size: 3rem;
+  font-weight: 700;
+}
+ 
+.points-label {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+ 
+.last-update {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+ 
+.section-title {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #444;
+}
+ 
+.redemption-list {
+  border-radius: 8px;
+  overflow: hidden;
+}
+ 
+.redemption-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+ 
+.redeem-details {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.redeem-points {
+  font-weight: 500;
+  font-size: 1rem;
+}
+ 
+.redeem-discount {
+  font-size: 0.9rem;
+  color: #777;
+}
+ 
+.redeem-date {
+  font-size: 0.85rem;
+  color: #999;
+}
+ 
+ 
+ 
+ 

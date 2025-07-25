@@ -1,0 +1,30 @@
+package cts.shbs.service;
+
+import java.util.List;
+import java.util.Map;
+
+import cts.shbs.model.PaymentDto;
+
+public interface PaymentService {
+
+    PaymentDto savePayment(PaymentDto paymentDto);
+
+    List<PaymentDto> getAllPayment();
+
+    PaymentDto getPaymentById(Long id);
+
+    PaymentDto updatePayment(Long id, PaymentDto updatedPaymentDTO);
+
+    void deletePayment(Long id);
+
+    // Razorpay-specific methods
+
+    // The createOrder method was moved to BookingService, so it's removed here.
+    // If you still need a createOrder for other purposes, adjust its signature as needed.
+    // Map<String, Object> createOrder(Long userId, Double amount); // Removed or adjusted if needed elsewhere
+
+    String verifyPayment(String razorpayOrderId, String razorpayPaymentId, String razorpaySignature);
+
+    // Renamed and modified from updateRazorpayPaymentStatus to match the implementation
+    PaymentDto updatePaymentAndBookingStatus(String razorpayOrderId, String razorpayPaymentId, String newStatus);
+}

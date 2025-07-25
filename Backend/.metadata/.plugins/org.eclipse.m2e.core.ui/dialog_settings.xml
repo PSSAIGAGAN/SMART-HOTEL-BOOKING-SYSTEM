@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\shbs"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\urms"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\rrms"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\room"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\loyalty-service"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\hotel"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\gatewayapi"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\eureka-server"/>
+			<item value="C:\Users\2406646\OneDrive - Cognizant\Desktop\Smart Hotel Booking System\Smart-Hotel-Booking-System\Backend\config-server"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

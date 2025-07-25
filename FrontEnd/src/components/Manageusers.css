@@ -1,0 +1,26 @@
+.card-selector {
+  background-color: var(--dark);
+  color: var(--primary);
+  border: 1px solid var(--muted);
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  margin-bottom: 1rem;
+}
+.card-selector:hover {
+  background-color: var(--secondary);
+  color: var(--dark);
+}
+.card-selector.active {
+  background-color: var(--secondary);
+  color: var(--dark);
+  font-weight: var(--fw-medium);
+}
+.card-selector i {
+  margin-bottom: 0.5rem;
+}
+.card-row {
+  padding: 1rem 0;
+}

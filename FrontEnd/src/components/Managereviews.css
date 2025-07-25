@@ -1,0 +1,38 @@
+/* Header section */
+.review-header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .review-heading {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  .review-add-btn {
+    font-size: 0.9rem;
+  }
+  
+  /* Table action icons */
+  .review-action-icons button {
+    background: none;
+    border: 1;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+  
+  /* Mobile styles */
+  .add-btn {
+    font-size: 0.9rem;
+  }
+  
+  .action-btn {
+    margin-right: 0.5rem;
+  }
+  
+  .review-table-wrapper {
+    margin-top: 1rem;
+  }
+  
